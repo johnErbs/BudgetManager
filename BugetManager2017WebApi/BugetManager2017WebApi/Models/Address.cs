@@ -7,31 +7,33 @@ namespace BugetManager2017WebApi.Models
 {
     public class Address
     {
-        private string addr;
+        private string roadName, city;
 
-        public string Addr
+        private int roadNumber, zipCode;
+
+
+        public string RoadName
         {
-            get { return addr; }
-            set { addr = value; }
+            get { return roadName; }
+            set { roadName = value; }
         }
-        private int zipCode;
+
+        public int RoadNumber
+        {
+            get { return roadNumber; }
+            set { roadNumber = value; }
+        }
 
         public int ZipCode
         {
             get { return zipCode; }
             set { zipCode = value; }
         }
-        private string city;
-
+     
         public string City
         {
             get { return city; }
             set { city = value; }
         }
-
-
-
-
-
     }
 }

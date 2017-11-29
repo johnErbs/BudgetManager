@@ -48,19 +48,19 @@ namespace BugetManager2017WebApi.DataAcces
         //Inserts new Adress into database
         internal static void CreateAddr(Address address)
         {
-            try
-            {
-                SqlCommand createCmd = new SqlCommand("INSERT INTO Address (AddressLine, ZipCode, City) VALUES(@addr, @zipCode, @city)", connection);
-                createCmd.Parameters.Add(CreateParam("@addr", address.Addr, SqlDbType.NVarChar));
-                createCmd.Parameters.Add(CreateParam("@zipCode", address.ZipCode, SqlDbType.NVarChar));
-                createCmd.Parameters.Add(CreateParam("@city", address.City, SqlDbType.NVarChar));
+            //try
+            //{
+            //    SqlCommand createCmd = new SqlCommand("INSERT INTO Address (AddressLine, ZipCode, City) VALUES(@addr, @zipCode, @city)", connection);
+            //    createCmd.Parameters.Add(CreateParam("@addr", address.Addr, SqlDbType.NVarChar));
+            //    createCmd.Parameters.Add(CreateParam("@zipCode", address.ZipCode, SqlDbType.NVarChar));
+            //    createCmd.Parameters.Add(CreateParam("@city", address.City, SqlDbType.NVarChar));
 
-                createCmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //    createCmd.ExecuteNonQuery();
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
         //Author Johnny Schmidt Erbs

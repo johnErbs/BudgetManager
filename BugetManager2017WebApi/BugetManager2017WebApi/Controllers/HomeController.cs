@@ -44,7 +44,7 @@ namespace BugetManager2017WebApi.Controllers
         {
             return View();
         }
-        public void CreateOrg(string Command, Address address, Organization organization)
+        public void SendTo_ApiOrg(string Command, Address address, Organization organization)
         {
             if (Command == "createOrg")
             {

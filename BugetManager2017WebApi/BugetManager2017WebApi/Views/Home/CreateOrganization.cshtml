@@ -4,11 +4,10 @@
 @{
     ViewBag.Title = "CreateOrganization";
 
-    BugetManager2017WebApi.Models.Organization Org = new BugetManager2017WebApi.Models.Organization();
-    BugetManager2017WebApi.Models.Address adrLine = new BugetManager2017WebApi.Models.Address();
+    BugetManager2017WebApi.Models.Organization org = new BugetManager2017WebApi.Models.Organization();
+    BugetManager2017WebApi.Models.Address addrLine = new BugetManager2017WebApi.Models.Address();
 }
 
-<h2>CreateOrganization</h2>
 <html>
     <head>
         <meta charset="utf-8" />
@@ -18,38 +17,63 @@
     <body>
         <div class="canvas002">
             <div class="canvas001">
-                <h2>Budgetskema Todos</h2>
+                <div class="canvas004">
+                        @using (Html.BeginForm("SendTo_ApiOrg", "Home", FormMethod.Post, new { id = "submitForm" }))
+                        {
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h3>Firmaoplysninger</h3>
+                                    <span>API-Key</span><br />
+                                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="001" name="apiKey" placeholder="Din API-Key" type="text" value=""><br /><br />
+                                    <span>Firma-navn</span><br />
+                                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="002" name="name" placeholder="Firma-navn" type="text" value=""><br /><br />
+                                    <span>Telefon</span><br />
+                                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="003" name="primaryPhone" placeholder="Telefon nummer" type="text" value=""><br /><br />
+                                    <span>Mobil</span><br />
+                                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="004" name="secondaryPhone" placeholder="Mobil nummer" type="text" value=""><br /><br />
+                                    <span>Email</span><br />
+                                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="005" name="email" placeholder="Email addresse" type="text" value=""><br /><br />
+                                </div>
+                                <div class="col-md-4">
+                                    <h3>Adresseoplysninger</h3><br />
+                                    <span>Vejnavn</span><br />
+                                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="006" name="roadName" placeholder="Vejnavn" type="text" value=""><br /><br />
+                                    <span>Husnummer</span><br />
+                                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="007" name="roadNumber" placeholder="Nummer" type="text" value=""><br /><br />
+                                    <span>Postnummer</span><br />
+                                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="008" name="zipCode" placeholder="Postnummer" type="text" value=""><br /><br />
+                                    <span>By</span><br />
+                                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="009" name="city" placeholder="By" type="text" value=""><br /><br />
+                                </div>
+                            </div>
+                            <div>
+                                <hr />
+                                <button type="submit" id="btnCreateTable" name="Command" value="createOrg">Opret Virksomhed</button>
+                            </div>
+                        }
 
-                @using (Html.BeginForm("CreateOrg", "Home", FormMethod.Post, new { id = "submitForm" }))
-                {
-                    <span>API-Key</span><br />
-                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="001" name="apiKey" placeholder="Din API-Key" type="text" value=""><br /><br />
-                    <span>Firma-navn</span><br />
-                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="002" name="name" placeholder="Firma-navn" type="text" value=""><br /><br />
-                    <span>Adresse</span><br />
-                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="003" name="address" placeholder="Adresse" type="text" value=""><br /><br />
-                    <span>Postnummer</span><br />
-                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="004" name="zipCode" placeholder="Postnummer" type="text" value=""><br /><br />
-                    <span>By</span><br />
-                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="005" name="city" placeholder="By" type="text" value=""><br /><br />
-                    <hr />
+                        <script type="text/javascript">
+                            var apiKey = document.getElementById("001")[0];
+                            var name = document.getElementById("002")[1];
+                            var primaryPhone = document.getElementById("003")[2];
+                            var secondaryPhone = document.getElementById("004")[3];
+                            var email = document.getElementById("005")[4];
+                            var roadName = document.getElementById("006")[5];
+                            var roadNumber = document.getElementById("007")[6];
+                            var zipCode = document.getElementById("008")[7];
+                            var city = document.getElementById("009")[8];
 
-                    <button type="submit" id="btnCreateTable" name="Command" value="createOrg">Opret Budget</button>
-                }
-
-                <script type="text/javascript">
-                    var apiKey = document.getElementById("001")[0];
-                    var name = document.getElementById("002")[1];
-                    var address = document.getElementById("003")[2];
-                    var zipCode = document.getElementById("004")[3];
-                    var city = document.getElementById("005")[4];
-
-                    @Org.ApiKey = apiKey.value;
-                    @Org.Name = name.value;
-                    @adrLine.Addr = address.value;
-                    @adrLine.ZipCode = zipCode.value;
-                    @adrLine.City = city.value;
-                </script>
+                            @org.ApiKey = apiKey.value;
+                            @org.Name = name.value;
+                            @org.PrimaryPhone = primaryPhone.value;
+                            @org.SecondaryPhone = secondaryPhone.value;
+                            @org.Email = email.value;
+                            @addrLine.RoadName = roadName.value;
+                            @addrLine.RoadNumber = roadNumber.value;
+                            @addrLine.ZipCode = zipCode.value;
+                            @addrLine.City = city.value;
+                        </script>
+                </div>
             </div>
         </div>
     </body>
