@@ -1,0 +1,59 @@
+﻿@model BugetManager2017WebApi.Models.BudgetModel
+
+@{
+    ViewBag.Title = "CreateBugetTemplate";
+    BugetManager2017WebApi.Models.BudgetModel BudgetTemplate = new BugetManager2017WebApi.Models.BudgetModel();
+}
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="canvas002">
+        <div class="canvas001">
+            <h2>Budgetskema Todos</h2>
+           
+            @using (Html.BeginForm("CreateTable", "Home", FormMethod.Post, new { id = "submitForm" }))
+            {
+                <span>Tittel</span><br />
+                <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="001Tit" name="title" placeholder="Din Tittel" type="text" value=""><br /><br />
+                <span>Kategori</span><br />
+                <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="002C" name="category" placeholder="Indsæt Kategori" type="text" value=""><br /><br />
+                <span>Beskrivelse</span><br />
+                <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="003D" name="description" placeholder="Din beskrivelse" type="text" value=""><br /><br />
+                <span>Regnskabsår</span><br />
+                <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="003BY" name="budgetYear" placeholder="Regnskabsår" type="text" value=""><br /><br />
+                   
+                <span>Formål</span><br />
+                <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="004Purp" name="purpose" placeholder="formål" type="text" value=""><br /><br />
+                <span>Visibilitetsniveau</span><br />
+                <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="005Vis" name="visibilityLevel" placeholder="Visibilitetsniveau" type="text" value="">
+                <hr />
+
+                <button type="submit" id="btnCreateTable" name="Command" value="createTable">Opret Budget</button>
+            }
+
+                <script type="text/javascript">
+                    var title, category, description, budgetYear, purpose, visibilityLevel;
+                    title = document.getElementById("001Tit");
+                    category = document.getElementById("002C");
+                    description = document.getElementById("003D");
+                    budgetYear = document.getElementById("003BY");
+                    //NOTE: (underlaying 2 variables needs to be made in the model Class!)
+                    purpose = document.getElementById("004Purp");
+                    visibilityLevel = document.getElementById("005Vis");
+                    
+                    @BudgetTemplate.Headline = title.value;
+                    @BudgetTemplate.Category = category.value;
+                    @BudgetTemplate.Description = description.value;
+                    @BudgetTemplate.Year = budgetYear.value;
+                </script>
+        </div>
+    </div>
+</body>
+</html>
+
+

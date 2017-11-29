@@ -1,0 +1,56 @@
+﻿@model BugetManager2017WebApi.Models.Organization
+
+
+@{
+    ViewBag.Title = "CreateOrganization";
+
+    BugetManager2017WebApi.Models.Organization Org = new BugetManager2017WebApi.Models.Organization();
+    BugetManager2017WebApi.Models.Address adrLine = new BugetManager2017WebApi.Models.Address();
+}
+
+<h2>CreateOrganization</h2>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="canvas002">
+            <div class="canvas001">
+                <h2>Budgetskema Todos</h2>
+
+                @using (Html.BeginForm("CreateOrg", "Home", FormMethod.Post, new { id = "submitForm" }))
+                {
+                    <span>API-Key</span><br />
+                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="001" name="apiKey" placeholder="Din API-Key" type="text" value=""><br /><br />
+                    <span>Firma-navn</span><br />
+                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="002" name="name" placeholder="Firma-navn" type="text" value=""><br /><br />
+                    <span>Adresse</span><br />
+                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="003" name="address" placeholder="Adresse" type="text" value=""><br /><br />
+                    <span>Postnummer</span><br />
+                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="004" name="zipCode" placeholder="Postnummer" type="text" value=""><br /><br />
+                    <span>By</span><br />
+                    <input aria-invalid="false" aria-required="true" autofocus="autofocus" id="005" name="city" placeholder="By" type="text" value=""><br /><br />
+                    <hr />
+
+                    <button type="submit" id="btnCreateTable" name="Command" value="createOrg">Opret Budget</button>
+                }
+
+                <script type="text/javascript">
+                    var apiKey = document.getElementById("001")[0];
+                    var name = document.getElementById("002")[1];
+                    var address = document.getElementById("003")[2];
+                    var zipCode = document.getElementById("004")[3];
+                    var city = document.getElementById("005")[4];
+
+                    @Org.ApiKey = apiKey.value;
+                    @Org.Name = name.value;
+                    @adrLine.Addr = address.value;
+                    @adrLine.ZipCode = zipCode.value;
+                    @adrLine.City = city.value;
+                </script>
+            </div>
+        </div>
+    </body>
+</html>

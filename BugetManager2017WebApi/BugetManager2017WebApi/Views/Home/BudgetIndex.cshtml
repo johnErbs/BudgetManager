@@ -1,0 +1,76 @@
+﻿@model BugetManager2017WebApi.Models.Transaction
+
+@{
+    ViewBag.Title = "BudgetIndex";
+}
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body >
+    <div class="canvas002">
+        <div class="canvas001">
+            <div class="canvas003">
+                @foreach (var item in ViewBag.Transactions)
+                {
+                    <table  class="table">
+                        <thead style="background-color: #e6f3ff">
+                            <tr>
+                                <th>   </th>
+                                <th>TransactonID</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>SubcatagoryID</th>
+                                <th>   </th>
+                                <th>   </th>
+                            </tr>
+                        </thead>
+                        <tbody class="table tbody">
+                            <tr>
+                                @{
+                                    if (item.Img != null && item.Img.Contains("http"))
+                                    {
+                                        <td style="border-bottom: 1px solid #ddd"><img src="@item.Img" alt="No Logo" width="42" height="42"></td>
+                                    }
+                                    else if (!item.Img.Contains("http"))
+                                    {
+                                        <td style="border-bottom: 1px solid #ddd"><img src="~/Content/images/noLogo.jpg" alt="No Logo" width="42" height="42"></td>
+                                    }
+                                }
+                                <td class="table-bordered">@item.TransactionID</td>
+                                <td class="table-bordered">@item.Amount</td>
+                                <td class="table-bordered">@item.Date</td>
+                                <td class="table-bordered">@item.Description</td>
+                                <td class="table-bordered">@item.SubCat</td>
+                                <td style="border-bottom: 1px solid #ddd">
+                                    @using (Html.BeginForm("DeleteCommand", "Home", FormMethod.Post, new { id = "submitForm" }))
+                                    {
+                                        <center>
+                                        <button style="margin: 10%;" type="submit" id="btnDelete" name="Command" value="@item.TransactionID">Delete</button>
+                                        </center>
+                                    }
+                                </td>
+                                <td style="border-bottom: 1px solid #ddd">
+                                    @using (Html.BeginForm("UpdateCommand", "Home", FormMethod.Post, new { id = "submitForm" }))
+                                    {
+                                        <center>
+                                        <button style="margin: 10%;" type="submit" id="btnUpdate" name="Command" value="@item.TransactionID">Update</button>
+                                        </center>
+                                    }
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
