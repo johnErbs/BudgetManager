@@ -29,6 +29,9 @@ namespace BugetManager2017WebApi.Controllers
             DAL.Open();
             DAL.CreateAddr(address);
             DAL.Close();
+            DAL.Open();
+            DAL.GetAddrID();
+            DAL.Close();
         }
 
         // PUT: api/Address/5

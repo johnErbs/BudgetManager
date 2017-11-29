@@ -9,6 +9,7 @@ using System.Web;
 
 namespace BugetManager2017WebApi.DataAcces
 {
+
     public class DAL
     {
         //Author Johnny Schmidt Erbs
@@ -20,7 +21,7 @@ namespace BugetManager2017WebApi.DataAcces
         {
             try
             {
-                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["TransactionDB"].ConnectionString);
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["BudgetDB"].ConnectionString);
                 connection.Open();
             }
             catch (Exception ex)
@@ -28,6 +29,7 @@ namespace BugetManager2017WebApi.DataAcces
                 throw ex;
             }
         }
+
 
         //Author Johnny Schmidt Erbs
         //Close SqlConnection
@@ -44,23 +46,59 @@ namespace BugetManager2017WebApi.DataAcces
 
         }
 
+        internal static void GetAddrID()
+        {
+            SqlCommand addrIDCmd = new SqlCommand("SELECT TOP 1 * FROM AddressOrg ORDER BY AddressID DESC ", connection);
+
+            SqlDataReader dr = addrIDCmd.ExecuteReader();
+
+            try
+            {
+                while (dr.Read())
+                {
+                    Address.ID = dr.GetInt32(0);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         //Author Johnny Schmidt Erbs
         //Inserts new Adress into database
         internal static void CreateAddr(Address address)
         {
-            //try
-            //{
-            //    SqlCommand createCmd = new SqlCommand("INSERT INTO Address (AddressLine, ZipCode, City) VALUES(@addr, @zipCode, @city)", connection);
-            //    createCmd.Parameters.Add(CreateParam("@addr", address.Addr, SqlDbType.NVarChar));
-            //    createCmd.Parameters.Add(CreateParam("@zipCode", address.ZipCode, SqlDbType.NVarChar));
-            //    createCmd.Parameters.Add(CreateParam("@city", address.City, SqlDbType.NVarChar));
+            try
+            {
+                SqlCommand createCmd = new SqlCommand("INSERT INTO AddressOrg (City, ZipCode, RoadName, RoadNumber) VALUES('@city', @zipCode, '@roadName', @roadNumber)", connection);
+                createCmd.Parameters.Add(CreateParam("@city", address.City, SqlDbType.NVarChar));
+                createCmd.Parameters.Add(CreateParam("@zipCode", address.ZipCode, SqlDbType.Int));
+                createCmd.Parameters.Add(CreateParam("@roadName", address.RoadName, SqlDbType.NVarChar));
+                createCmd.Parameters.Add(CreateParam("@roadNumber", address.RoadNumber, SqlDbType.Int));
 
-            //    createCmd.ExecuteNonQuery();
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
+                createCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        internal static void CreateVisibility(Organization organization)
+        {
+            try
+            {
+                SqlCommand createCmd = new SqlCommand("INSERT INTO Visibility (APIKey) VALUES('@apiKey')", connection);
+                createCmd.Parameters.Add(CreateParam("@apiKey", organization.ApiKey, SqlDbType.NVarChar));
+                createCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         //Author Johnny Schmidt Erbs
@@ -69,9 +107,12 @@ namespace BugetManager2017WebApi.DataAcces
         {
             try
             {
-                SqlCommand createCmd = new SqlCommand("INSERT INTO Organization (ApiKey, Name)VALUES(@apiKey, @name)",connection);
-                createCmd.Parameters.Add(CreateParam("@apiKey", organization.ApiKey, SqlDbType.NVarChar));
-                createCmd.Parameters.Add(CreateParam("@name", organization.Name, SqlDbType.NVarChar));
+                SqlCommand createCmd = new SqlCommand("INSERT INTO Organization (CompanyName, PrimaryPhone, SecondaryPhone, Email, FK_AddressID, FK_VisibilityID)VALUES('@coName', @primePhone, @secondPhone, '@email', @fkAddrID)", connection);
+                createCmd.Parameters.Add(CreateParam("@coName", organization.Name, SqlDbType.NVarChar));
+                createCmd.Parameters.Add(CreateParam("@primePhone", organization.PrimaryPhone, SqlDbType.Int));
+                createCmd.Parameters.Add(CreateParam("@secondPhone", organization.SecondaryPhone, SqlDbType.Int));
+                createCmd.Parameters.Add(CreateParam("@email", organization.Email, SqlDbType.NVarChar));
+                createCmd.Parameters.Add(CreateParam("@fkAddrID", Address.ID, SqlDbType.Int));
 
                 createCmd.ExecuteNonQuery();
             }

@@ -27,6 +27,10 @@ namespace BugetManager2017WebApi.Controllers
         public void Post(Organization organization)
         {
             DAL.Open();
+            DAL.CreateVisibility(organization);
+            DAL.Close();
+
+            DAL.Open();
             DAL.CreateOrg(organization);
             DAL.Close();
         }
